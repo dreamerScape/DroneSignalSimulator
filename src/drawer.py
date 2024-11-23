@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import time
-import random
 import numpy as np
 from EnhancedDroneSignalGenerator import EnhancedDroneSignalGenerator
 
