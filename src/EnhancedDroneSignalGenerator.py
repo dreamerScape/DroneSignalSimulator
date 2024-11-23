@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from data.drones import drone_data  # Import drone data
-from EnhancedSignalValidator import EnhancedSignalValidator  # Validator for generated signal data
+from src.EnhancedSignalValidator import EnhancedSignalValidator  # Validator for generated signal data
 
 class EnhancedDroneSignalGenerator:
     def __init__(self, package_time=0.02, packages_per_second=10, environment="city"):
@@ -169,5 +169,9 @@ class EnhancedDroneSignalGenerator:
             time.sleep(self.package_time)
 
         signal_data = self.simulate_multipath_and_noise(signal_data, background_frequencies=[2400, 5200, 5800])
-
+        df = pd.DataFrame(signal_data, columns=["Time (s)", "Frequency (MHz)", "Bandwidth (MHz)", "Signal Strength (dBm)", "Signal Type", "Doppler Shift", "Multipath Effect", "Jamming"])
+        df.to_csv(f"{drone_type}_optimized_signal.csv", index=False)
+        print(f"Data for {drone_type} successfully generated and saved to CSV.")
+        
         return signal_data
+    
