@@ -167,11 +167,10 @@ class EnhancedDroneSignalGenerator:
             ])
 
             time.sleep(self.package_time)
-
+# TODO: Create a function to change writing to csv format
         signal_data = self.simulate_multipath_and_noise(signal_data, background_frequencies=[2400, 5200, 5800])
         df = pd.DataFrame(signal_data, columns=["Time (s)", "Frequency (MHz)", "Bandwidth (MHz)", "Signal Strength (dBm)", "Signal Type", "Doppler Shift", "Multipath Effect", "Jamming"])
         df.to_csv(f"{drone_type}_optimized_signal.csv", index=False)
         print(f"Data for {drone_type} successfully generated and saved to CSV.")
         
         return signal_data
-    
