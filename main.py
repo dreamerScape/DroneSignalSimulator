@@ -16,15 +16,15 @@ visualizer.run()
 
 # Advanced usage with custom parameters
 visualizer = DroneSignalVisualizer(
-    drone_type="DJI-Mavic",
+    drone_type="Orlan-10",
     duration_seconds=180,
-    drone_mode="Navigation",
+    drone_mode="Telemetry",
     distance=1500,
     environment="mountain",
     environment_factors={
-        "urban_loss": 30,
-        "field_loss": 10,
-        "mountain_loss": 20
+        "urban_loss": 20,
+        "field_loss": 5,
+        "mountain_loss": 10
     }
 )
 visualizer.run()
