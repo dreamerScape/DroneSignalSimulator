@@ -26,7 +26,8 @@
 ## Installation
 
 **Create the data directory and add the drones.py file**
-  In the root directory of the repository, create a folder named data and inside that folder, create a file named drones.py. This file will contain the data for    the drones, and it should look like this:
+
+--In the root directory of the repository, create a folder named data and inside that folder, create a file named drones.py. This file will contain the data for    the drones, and it should look like this:
   ```python
 
   # drones.py
