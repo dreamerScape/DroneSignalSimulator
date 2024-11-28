@@ -3,7 +3,7 @@ from src.EnhancedDroneSignalGenerator import EnhancedDroneSignalGenerator
 
 generator = EnhancedDroneSignalGenerator(environment="city")
 
-generator.set_columns(["Time (s)", "Frequency (MHz)", "Signal Strength (dBm)"])  
+generator.set_columns(["Frequency", "RSSI"])  
 
 generator.generate_signal(
     "Orlan-10", duration_seconds=60, drone_mode="Telemetry", distance=1000,
