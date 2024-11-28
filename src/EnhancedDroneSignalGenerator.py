@@ -19,6 +19,19 @@ class EnhancedDroneSignalGenerator:
         self.packages_per_second = packages_per_second
         self.environment = environment  # Environment type (e.g., city, open field)
 
+    def set_columns(self, columns):
+        """
+        Sets the columns to save in the output CSV file.
+        :param columns: List of column names to save.
+        """
+        available_columns = ["Time (s)", "Frequency (MHz)", "Bandwidth (MHz)", "Signal Strength (dBm)",
+                             "Signal Type", "Doppler Shift", "Multipath Effect", "Jamming"]
+        invalid_columns = [col for col in columns if col not in available_columns]
+        if invalid_columns:
+            raise ValueError(f"Invalid columns: {invalid_columns}. Available columns are: {available_columns}")
+
+        self.columns_to_save = columns
+        print(f"Columns set to save: {self.columns_to_save}")
     def generate_random_frequency(self, frequency_ranges):
         """
         Generates a random frequency within the specified frequency ranges.
@@ -167,10 +180,15 @@ class EnhancedDroneSignalGenerator:
             ])
 
             time.sleep(self.package_time)
-# TODO: Create a function to change writing to csv format
+
+        # Simulate noise and multipath effects
         signal_data = self.simulate_multipath_and_noise(signal_data, background_frequencies=[2400, 5200, 5800])
-        df = pd.DataFrame(signal_data, columns=["Time (s)", "Frequency (MHz)", "Bandwidth (MHz)", "Signal Strength (dBm)", "Signal Type", "Doppler Shift", "Multipath Effect", "Jamming"])
-        df.to_csv(f"{drone_type}_optimized_signal.csv", index=False)
+
+        # Save only selected columns to CSV
+        df = pd.DataFrame(signal_data, columns=["Time (s)", "Frequency (MHz)", "Bandwidth (MHz)", "Signal Strength (dBm)",
+                                                "Signal Type", "Doppler Shift", "Multipath Effect", "Jamming"])
+        df_to_save = df[self.columns_to_save]  # Select only specified columns
+        df_to_save.to_csv(f"{drone_type}_optimized_signal.csv", index=False)
         print(f"Data for {drone_type} successfully generated and saved to CSV.")
         
         return signal_data
